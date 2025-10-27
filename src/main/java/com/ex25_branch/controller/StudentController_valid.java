@@ -3,20 +3,17 @@ package com.ex25_branch.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.RequestMapping;
-
-import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.ex25_branch.domain.Student;
 import com.ex25_branch.service.StudentService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 
 
 @Controller
@@ -25,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 public class StudentController_valid {
 	
 	private final StudentService studentService;
-	
+		
 //	list화면: 전체 학생 목록
 	@GetMapping
 	public String list(Model model) {
@@ -61,7 +58,7 @@ public class StudentController_valid {
 	}
 //	http://localhost:8080/students/valid/11/edit
 //	수정폼
-	@GetMapping("/{id}")
+	@GetMapping("/{id}/edit")
 	public String update(@PathVariable Long id, @Valid @ModelAttribute Student student, BindingResult bindingResult) {
 		if(bindingResult.hasErrors()) {
 		//		결과에 에러가 있으면, 입력안하고, 입력창으로 돌아가기
@@ -69,11 +66,11 @@ public class StudentController_valid {
 	}
 	student.setId(id);
 	studentService.updateStudent(student);
-	return"redirect:/syudents/valid";
+	return"redirect:/students/valid";
 }
 //	http://localhost:8080/students/11/delete
 	// 삭제 처리
-	@PostMapping
+	@PostMapping("/{id}/delete")
 	public String delete(@PathVariable Long id) {
 		studentService.deleteStudent(id);
 		return"redirect:/students/valid";

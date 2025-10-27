@@ -12,7 +12,6 @@ import com.ex25_branch.domain.Student;
 import com.ex25_branch.service.StudentService;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
